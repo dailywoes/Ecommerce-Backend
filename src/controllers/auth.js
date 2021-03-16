@@ -10,12 +10,15 @@ const User = require('../models/user');
 //libraries
 const jwt = require('jsonwebtoken');
 
-//a function for user sign up processing
+//This function is responsible for processing a user signup request, and then
+// saving the entry in the database from the information sent via an api request,
+// and then forwarding the response from the database.
 exports.signup = (req, res) => {
-    User.findOne({ email: req.body.email })
+    //check if there is a user with that email exists, if not create it.
+    User.findOne({email: req.body.email})
         .exec((error, user) => {
             //if the user object with that email exists, user is already registered
-            if(user) return res.status(400).json({
+            if (user) return res.status(400).json({
                 message: 'User already registered'
             });
             //separate the request into individual variables
@@ -34,14 +37,14 @@ exports.signup = (req, res) => {
                 username: Math.random().toString()
             });
 
+            //save the user object to the database
             _user.save((error, data) => {
-                if(error){
+                if (error) {
                     return res.status(400).json({
                         message: 'Something went wrong.'
                     });
                 }
-
-                if(data){
+                if (data) {
                     return res.status(201).json({
                         message: 'User created successfully!'
                     });
@@ -50,28 +53,37 @@ exports.signup = (req, res) => {
         });
 }
 
-//a function for user sign in processing
+//This function is responsible for processing a user signin request via an api
+// request, and then forwarding the response from the database.
 exports.signin = (req, res) => {
-    User.findOne({ email: req.body.email })
+    //check if there is a user with that email exists.
+    User.findOne({email: req.body.email})
         .exec((error, user) => {
-            if(error) return res.status(400).json({ error });
-            if(user){
-                if(user.authenticate(req.body.password)){
-                    const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-                    const { _id, firstName, lastName, email, role, fullName } = user;
+            //user does not exist
+            if (error) return res.status(400).json({error});
+
+            //user exists
+            if (user) {
+                //if user password is a match
+                if (user.authenticate(req.body.password)) {
+                    //create a token that expires in 1 hour
+                    const token = jwt.sign({_id: user._id, role: user.role},
+                        process.env.JWT_SECRET, {expiresIn: '1h'});
+                    //create temp user data
+                    const {_id, firstName, lastName, email, role, fullName} = user;
                     res.status(200).json({
                         token,
                         user: {
                             _id, firstName, lastName, email, role, fullName
                         }
                     });
-                }else{
+                } else {
                     return res.status(400).json({
                         message: 'Invalid Password'
                     });
                 }
-            }else{
-                return res.status(400).json({ message: 'something went wrong' });
+            } else {
+                return res.status(400).json({message: 'something went wrong'});
             }
         });
 }

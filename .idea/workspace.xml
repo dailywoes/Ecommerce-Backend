@@ -3,9 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="380edb2f-2255-4cf7-a384-dc1b8265de80" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/admin/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/admin/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/category.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/category.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/category.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/category.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validators/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/validators/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615840893412</updated>
-      <workItem from="1615840894505" duration="5752000" />
+      <workItem from="1615840894505" duration="9589000" />
     </task>
     <servers />
   </component>

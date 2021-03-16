@@ -23,7 +23,7 @@ const categoryRoutes = require('./routes/category');
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 
-//mongodb connection
+//mongodb connection, connecting to the database
 //mongodb://root:<password>@cluster0.wsooy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@cluster0.wsooy.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
@@ -33,8 +33,8 @@ mongoose.connect(
         useCreateIndex: true,
         useFindAndModify: false
     }
-    ).then(() => {
-        console.log('Database connected')
+).then(() => {
+    console.log('Database connected')
 });
 
 //api routes
