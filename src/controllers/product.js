@@ -7,7 +7,7 @@ exports.createProduct = (req, res) => {
     //res.status(200).json({ file: req.files, body: req.body })
 
     const {
-        name, price, desc, category
+        name, price, quantity, desc, category
     } = req.body;
 
     let images = [];
@@ -22,6 +22,7 @@ exports.createProduct = (req, res) => {
         name: name,
         slug: slugify(name),
         price,
+        quantity,
         desc,
         images,
         category,
