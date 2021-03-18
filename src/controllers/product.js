@@ -18,16 +18,15 @@ exports.createProduct = (req, res) => {
     let images = [];
 
     //separate the request into individual variables
-    const {
-        name, price, quantity, desc, category
-    } = req.body;
+    const {name, price, quantity, desc, category} = req.body;
 
     //if the files length in the request is > 0, then
     //there are images associated with the product
     if (req.files.length > 0) {
         //map the images to a variable
+
         images = req.files.map((file) => {
-            return {image: file.location};
+            return {image: file.filename};
         });
     }
 

@@ -13,7 +13,7 @@ const path = require('path');
 
 //class objects
 const { createProduct } = require("../controllers/product");
-const {requireSignin, adminMiddleware} = require("../middleware/index");
+const {requireSignin, adminMiddleware} = require("../middleware");
 
 //This is a prebuilt function from the multer library for storing files
 // to a local disk.

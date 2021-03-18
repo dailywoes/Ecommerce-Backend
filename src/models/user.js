@@ -56,10 +56,10 @@ const userSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 //generate the hash password from the bcrypt library hash algorithm, from the user password
-userSchema.virtual('password')
-    .set(function (password) {
-        this.hash_password = bcrypt.hashSync(password, 10);
-    });
+// userSchema.virtual('password')
+//     .set(function (password) {
+//         this.hash_password = bcrypt.hashSync(password, 10);
+//     });
 
 //generate the full name from the user first and last name
 userSchema.virtual('fullName')
@@ -70,7 +70,7 @@ userSchema.virtual('fullName')
 //compare the password to the hash password using the bcrypt library
 userSchema.methods = {
     authenticate: async function (password) {
-        return await bcrypt.compareSync(password, this.hash_password);
+        return await bcrypt.compare(password, this.hash_password);
     },
 };
 

@@ -9,6 +9,8 @@ const User = require('../../models/user');
 
 //libraries
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const shortid = require("shortid");
 
 //This function is responsible for processing an admin signup request, and then
 // saving the entry in the database from the information sent via an api request,
@@ -16,7 +18,7 @@ const jwt = require('jsonwebtoken');
 exports.signup = (req, res) => {
     //check if there is an admin with that email exists, if not create it.
     User.findOne({email: req.body.email})
-        .exec((error, user) => {
+        .exec(async (error, user) => {
             //if the admin object with that email exists, user is already registered
             if (user) return res.status(400).json({
                 message: 'Admin already registered'
@@ -28,13 +30,16 @@ exports.signup = (req, res) => {
                 email,
                 password
             } = req.body;
+
+            const hash_password = await bcrypt.hash(password, 10);
+
             //create a user object from the user schema out of the request variables
             const _user = new User({
                 firstName,
                 lastName,
                 email,
-                password,
-                username: Math.random().toString(),
+                hash_password,
+                username: shortid.generate(),
                 role: 'admin'
             });
 

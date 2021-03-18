@@ -17,11 +17,12 @@ env.config();
 
 //route variables
 const app = express();
-const authRoutes = require('./routes/auth');
-const adminRoutes = require('./routes/admin/auth');
+const initialDataRoutes = require('./routes/admin/initialData');
 const categoryRoutes = require('./routes/category');
+const adminRoutes = require('./routes/admin/auth');
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
+const authRoutes = require('./routes/auth');
 
 //mongodb connection, connecting to the database
 //mongodb://root:<password>@cluster0.wsooy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
@@ -41,11 +42,12 @@ mongoose.connect(
 app.use(cors());
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'uploads')));
-app.use('/api', authRoutes);
-app.use('/api', adminRoutes);
+app.use('/api', initialDataRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
+app.use('/api', adminRoutes);
 app.use('/api', cartRoutes);
+app.use('/api', authRoutes);
 
 //log the port of the application
 app.listen(process.env.PORT, () => {
