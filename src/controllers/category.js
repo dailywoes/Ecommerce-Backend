@@ -16,7 +16,7 @@ const slugify = require('slugify');
 exports.createCategory = (req, res) => {
     const categoryObj = {
         name: req.body.name,
-        slug: slugify(req.body.name)
+        slug: `${slugify(req.body.name)}`
     }
 
     //sets the image of the category from the image url
@@ -55,6 +55,39 @@ exports.getCategories = (req, res) => {
         })
 }
 
+exports.updateCategories = async (req, res) => {
+    const {_id, name, parentId, type} = req.body;
+    const updatedCategories = [];
+
+    if(name instanceof Array){
+        for(let i=0; i < name.length; i++){
+            const _category = {
+                name: name[i],
+                type: type[i],
+            };
+            if(parentId[i] !== ''){
+                _category.parentId = parentId[i];
+            }
+
+            const updatedCategory = await category.findOneAndUpdate({_id: _id[i]}, _category, {new: true});
+            updatedCategories.push(updatedCategory);
+        }
+        return res.status(201).json({updatedCategories: updatedCategories});
+    }else{
+        const _category = {
+            name: name,
+            type: type,
+        };
+        if(parentId !== ''){
+            _category.parentId = parentId;
+        }
+        const updatedCategory = await category.findOneAndUpdate({_id}, _category, {new: true});
+        return res.status(201).json({updatedCategory});
+    }
+
+    res.status(200).json({body: req.body});
+}
+
 //This is a function called from getCategories, in order to populate a
 // list of categories, and it uses recursion to create a proper parent-
 // child hierarchy of categories.
@@ -75,8 +108,25 @@ function createCategories(categories, parentId = null) {
             name: cate.name,
             slug: cate.slug,
             parent: cate.parentId,
+            type: cate.type,
             children: createCategories(categories, cate._id)
         });
     }
     return categoryList;
 }
+
+exports.deleteCategories = async (req, res) => {
+    const { ids } = req.body.payload;
+    const deletedCategories = [];
+    for( let i=0; i < ids.length; i++){
+        const deleteCategory = await category.findOneAndDelete({ _id: ids[i]._id });
+        deletedCategories.push(deleteCategory);
+    }
+    if(deletedCategories.length == ids.length){
+
+        res.status(202).json({message: 'Categories removed'});
+    }else{
+        res.status(400).json({message: 'Something went wrong'});
+    }
+}
+

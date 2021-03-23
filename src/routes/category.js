@@ -12,7 +12,7 @@ const router = express.Router();
 const path = require('path');
 
 //class objects
-const {createCategory, getCategories} = require("../controllers/category");
+const {createCategory, getCategories, updateCategories, deleteCategories} = require("../controllers/category");
 const {requireSignin, adminMiddleware} = require("../middleware/index");
 
 //This is a prebuilt function from the multer library for storing files
@@ -32,6 +32,8 @@ const upload = multer({storage});
 
 //attach the api paths for category creation, and category catalogues.
 router.post('/category/create', requireSignin, adminMiddleware, upload.single('image'), createCategory);
+router.post('/category/update', requireSignin, adminMiddleware, upload.array('image'), updateCategories);
+router.post('/category/delete', requireSignin, adminMiddleware, deleteCategories);
 router.get('/category/getcategory', getCategories);
 
 //export the module

@@ -6,6 +6,7 @@ Description: This is the controller for executing product functions in api calls
 
 //class objects
 const Product = require('../models/product');
+const Category = require('../models/category');
 
 //libraries
 const shortid = require('shortid');
@@ -51,3 +52,25 @@ exports.createProduct = (req, res) => {
     });
 };
 
+exports.getProductsBySlug = (req, res) => {
+    const {slug} = req.params;
+    Category.findOne({slug: slug})
+        .exec((error, category) => {
+            if (error) {
+                return res.status(400).json({req});
+            }
+            if (category) {
+                Product.find({category: category._id})
+                    .exec((error, products) => {
+                        res.status(200).json({
+                            products,
+                            productsByPrice: {
+                                under50: products.filter(product => product.price <= 50),
+                                under100: products.filter(product => product.price > 50 && product.price <= 100),
+                                under250: products.filter(product => product.price > 100 && product.price <= 250)
+                            }
+                        });
+                    })
+            }
+        })
+}

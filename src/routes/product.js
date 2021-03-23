@@ -12,7 +12,7 @@ const router = express.Router();
 const path = require('path');
 
 //class objects
-const { createProduct } = require("../controllers/product");
+const { createProduct, getProductsBySlug } = require("../controllers/product");
 const {requireSignin, adminMiddleware} = require("../middleware");
 
 //This is a prebuilt function from the multer library for storing files
@@ -33,7 +33,7 @@ const upload = multer({ storage });
 
 //attach the api paths for product creation.
 router.post('/product/create', requireSignin, adminMiddleware, upload.array('image'), createProduct);
-//router.get('/category/getcategory', getCategories);
+router.get('/product/:slug', getProductsBySlug);
 
 //export the module
 module.exports = router;
